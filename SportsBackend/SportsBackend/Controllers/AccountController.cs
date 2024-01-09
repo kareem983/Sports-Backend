@@ -7,5 +7,7 @@ namespace SportsBackend.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+
+
     }
 }
