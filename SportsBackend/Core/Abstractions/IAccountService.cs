@@ -10,6 +10,8 @@ namespace Core.Abstractions
     public interface IAccountService
     {
         Task<ResponseResultDTO> Register(UserDTO userDTO);
+        Task<ResponseResultDTO> Login(UserLoginDTO userLoginDTO);
+        Task<ResponseResultDTO> Logout();
 
     }
 }

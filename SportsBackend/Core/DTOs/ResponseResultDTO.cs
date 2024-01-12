@@ -11,14 +11,6 @@ namespace Core.DTOs
         public bool Success { get; set; }
         public string? Message { get; set; }
         public object? Data { get; set; }
-        public static ResponseResultDTO NotFound(string msg = "Wrong Occurred")
-        {
-            return new ResponseResultDTO
-            {
-                Success = false,
-                Message = msg
-            };
-        }
         public static ResponseResultDTO Succeeded(string msg = "The Process Done Successfully")
         {
             return new ResponseResultDTO
@@ -27,6 +19,14 @@ namespace Core.DTOs
                 Message = msg
             };
         }
-
+        public static ResponseResultDTO Failed(string msg = "There are a problem occurred")
+        {
+            return new ResponseResultDTO
+            {
+                Success = false,
+                Message = msg
+            };
+        }
+        
     }
 }
