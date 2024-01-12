@@ -12,10 +12,12 @@ namespace SportsBackend.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountService accountService;
+        private readonly IConfiguration config;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService, IConfiguration config)
         {
             this.accountService = accountService;
+            this.config = config;
         }
 
 
@@ -40,7 +42,7 @@ namespace SportsBackend.Controllers
         {
             if (ModelState.IsValid)
             {
-                ResponseResultDTO result = await accountService.Login(userLogin);
+                ResponseResultDTO result = await accountService.Login(userLogin, GetTokenConfiguration());
                 if (result.Success)
                     return Ok(result);
                 else
@@ -49,6 +51,7 @@ namespace SportsBackend.Controllers
 
             return BadRequest(ModelState);
         }
+
 
         [HttpGet("Logout")]
         public async Task<IActionResult> Logout()
@@ -65,6 +68,14 @@ namespace SportsBackend.Controllers
             return BadRequest(ModelState);
         }
 
+
+        #region HELPER METHODS
+        private TokenConfigurationDTO GetTokenConfiguration() => new TokenConfigurationDTO{
+                ValidIssuer = config["JWT:ValidIssuer"],
+                ValidAudience = config["JWT:ValidAudience"],
+                SecretKey = config["JWT:SecretKey"]
+        };
+        #endregion
 
     }
 }

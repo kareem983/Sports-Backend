@@ -13,6 +13,6 @@ namespace Core.DTOs
         public string? UserName { get; set; }
         [Required(ErrorMessage ="Please Enter the Password")]
         public string? Password { get; set; }
-
+        
     }
 }
