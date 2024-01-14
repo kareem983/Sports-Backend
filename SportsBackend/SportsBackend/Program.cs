@@ -25,7 +25,14 @@ builder.Services.InfastructureStrapping();
 
 builder.Services.AddDbContext<SportsContext>(options=> 
                           options.UseSqlServer(builder.Configuration.GetConnectionString("SportsConnectionString")));
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<SportsContext>().AddDefaultTokenProviders();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options=>
+{
+    options.Password.RequiredLength = 3;
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+}).AddEntityFrameworkStores<SportsContext>().AddDefaultTokenProviders();
 
 
 // the bellow configuration: [Authorize] used JWT Token in Checking Authentication

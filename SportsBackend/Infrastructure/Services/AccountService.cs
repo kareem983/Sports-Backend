@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using AutoMapper.Configuration;
+﻿using AutoMapper.Configuration;
 using Core.Abstractions;
 using Core.DTOs;
 using Core.Entities;
@@ -20,14 +19,12 @@ namespace Infrastructure.Services
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IJWTTokenService jwtTokenService;
-        private readonly IMapper mapper;
 
-        public AccountService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IJWTTokenService jwtTokenService, IMapper mapper)
+        public AccountService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IJWTTokenService jwtTokenService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.jwtTokenService = jwtTokenService;
-            this.mapper = mapper;
         }
 
 

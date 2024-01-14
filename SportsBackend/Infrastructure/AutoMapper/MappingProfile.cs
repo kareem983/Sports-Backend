@@ -18,7 +18,15 @@ namespace Infrastructure.AutoMapper
 
         private void MapAccount()
         {
-            
+            //CreateMap<UserDTO, ApplicationUser>()
+            //    .ForMember(dest =>
+            //    dest.UserName,
+            //    opt => opt.MapFrom(src => src.UserName)
+            //    )
+            //    .ForMember(dest=>
+            //    dest.Email,
+            //    opt=> opt.MapFrom(src=> src.Email)
+            //    ).ReverseMap();
         }
     }
 }
