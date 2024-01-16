@@ -12,8 +12,9 @@ namespace Core.Entities
     {
         [Key]
         public int Id { get; set; }
-        public DateTime? MatchDate { get; set; }
+        public DateTime MatchDate { get; set; }
         public string Result { get; set; }
+        public bool IsDeleted { get; set; }
         public int TourmentId { get; set; }
         [ForeignKey(nameof(TourmentId))]
         public virtual Tourment Tourment { get; set; }

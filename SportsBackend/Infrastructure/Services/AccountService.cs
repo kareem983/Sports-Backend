@@ -43,7 +43,7 @@ namespace Infrastructure.Services
                 if (result.Succeeded)
                     return await AddUserRole(user, userDTO);
                 else
-                    return ResponseResultDTO.Failed("The User Data isn't valid, Please make sure the username doesn't have any spaces");
+                    return ResponseResultDTO.Failed("The User Data isn't valid, Please make sure the password length more than 2 and username doesn't have any spaces");
                 
             }
             catch (Exception ex)

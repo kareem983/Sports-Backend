@@ -19,6 +19,7 @@ namespace Infrastructure.DI
             Services.AddAutoMapper(Assembly.GetExecutingAssembly());
             Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             Services.AddScoped<IAccountService, AccountService>();
+            Services.AddScoped<ITeamService, TeamService>();
             Services.AddScoped<IJWTTokenService, JWTTokenService>();
 
         }

@@ -159,7 +159,6 @@ D:\Resources\Projects\Sports-Backend\SportsBackend\SportsBackend\obj\Debug\net7.
 D:\Resources\Projects\Sports-Backend\SportsBackend\SportsBackend\obj\Debug\net7.0\SportsBackend.AssemblyInfoInputs.cache
 D:\Resources\Projects\Sports-Backend\SportsBackend\SportsBackend\obj\Debug\net7.0\SportsBackend.AssemblyInfo.cs
 D:\Resources\Projects\Sports-Backend\SportsBackend\SportsBackend\obj\Debug\net7.0\SportsBackend.csproj.CoreCompileInputs.cache
-D:\Resources\Projects\Sports-Backend\SportsBackend\SportsBackend\obj\Debug\net7.0\SportsBackend.MvcApplicationPartsAssemblyInfo.cs
 D:\Resources\Projects\Sports-Backend\SportsBackend\SportsBackend\obj\Debug\net7.0\SportsBackend.MvcApplicationPartsAssemblyInfo.cache
 D:\Resources\Projects\Sports-Backend\SportsBackend\SportsBackend\obj\Debug\net7.0\SportsBackend.sourcelink.json
 D:\Resources\Projects\Sports-Backend\SportsBackend\SportsBackend\obj\Debug\net7.0\staticwebassets.build.json
@@ -177,3 +176,4 @@ D:\Resources\Projects\Sports-Backend\SportsBackend\SportsBackend\obj\Debug\net7.
 D:\Resources\Projects\Sports-Backend\SportsBackend\SportsBackend\obj\Debug\net7.0\SportsBackend.genruntimeconfig.cache
 D:\Resources\Projects\Sports-Backend\SportsBackend\SportsBackend\obj\Debug\net7.0\ref\SportsBackend.dll
 D:\Resources\Projects\Sports-Backend\SportsBackend\SportsBackend\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Resources\Projects\Sports-Backend\SportsBackend\SportsBackend\obj\Debug\net7.0\SportsBackend.MvcApplicationPartsAssemblyInfo.cs

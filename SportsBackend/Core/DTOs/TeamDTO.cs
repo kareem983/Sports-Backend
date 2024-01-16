@@ -1,23 +1,22 @@
-﻿using System;
+﻿using Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Entities
+namespace Core.DTOs
 {
-    public class Team
+    public  class TeamDTO
     {
-        [Key]
-        public int Id { get; set; }
+        [Required(ErrorMessage ="please Enter the Name")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "please Enter the Description")]
         public string Description { get; set; }
         public string? Logo { get; set; }
         public string? Website { get; set; }
+        [Required(ErrorMessage = "please Enter the Foundation Date")]
         public DateTime FoundationDate { get; set; }
-        public bool IsDeleted { get; set; }
-        public virtual List<Player> Players { get; set; }
-
     }
 }

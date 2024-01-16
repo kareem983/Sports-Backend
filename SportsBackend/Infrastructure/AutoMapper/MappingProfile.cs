@@ -14,6 +14,7 @@ namespace Infrastructure.AutoMapper
         public MappingProfile() 
         {
             MapAccount();
+            MapTeam();
         }
 
         private void MapAccount()
@@ -27,6 +28,11 @@ namespace Infrastructure.AutoMapper
             //    dest.Email,
             //    opt=> opt.MapFrom(src=> src.Email)
             //    ).ReverseMap();
+        }
+
+        private void MapTeam()
+        {
+            CreateMap<TeamDTO, Team>().ReverseMap();
         }
     }
 }

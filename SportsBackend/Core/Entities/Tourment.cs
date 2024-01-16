@@ -11,10 +11,10 @@ namespace Core.Entities
     {
         [Key]
         public int Id { get; set; }
-        public string? Name { get; set; }
-        public string? Description { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
         public string? Logo { get; set;}
-
-        //public virtual List<Match> Matches { get; set; }
+        public bool IsDeleted { get; set; }
+        public virtual List<Match> Matches { get; set; }
     }
 }
