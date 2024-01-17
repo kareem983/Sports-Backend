@@ -12,6 +12,8 @@ namespace Core.Abstractions
     {
         Task<ResponseResultDTO> Add(TeamDTO teamDTO);
         Task<ResponseResultDTO> Update(TeamDTO teamDTO);
-        Task<ResponseResultDTO> Delete(string name);
+        Task<ResponseResultDTO> Delete(int id);
+        Task<ResponseResultDTO> GetAll();
+        Task<ResponseResultDTO> GetById(int id);
     }
 }

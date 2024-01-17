@@ -15,7 +15,6 @@ namespace Core.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
-        public bool IsDeleted { get; set; }
         public int TeamId { get; set; }
         [ForeignKey(nameof(TeamId))]
         public virtual Team Team { get; set; }

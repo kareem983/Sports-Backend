@@ -10,6 +10,7 @@ namespace Core.DTOs
 {
     public class MatchDTO
     {
+        public int? Id { get; set; }
         public DateTime MatchDate { get; set; }
         public string Result { get; set; }
         public int TourmentId { get; set; }

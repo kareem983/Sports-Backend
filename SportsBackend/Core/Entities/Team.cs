@@ -16,7 +16,6 @@ namespace Core.Entities
         public string? Logo { get; set; }
         public string? Website { get; set; }
         public DateTime FoundationDate { get; set; }
-        public bool IsDeleted { get; set; }
         public virtual List<Player> Players { get; set; }
 
     }

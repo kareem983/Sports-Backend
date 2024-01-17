@@ -27,7 +27,9 @@ namespace Infrastructure.Repositories
         public async Task<List<T>> GetAllAsync() => await _context.Set<T>().ToListAsync();
         public async Task<T?> GetByIdAsync(int id) => await _entity.FindAsync(id);
         public async Task<T?> GetByGuid(Guid id) => await _entity.FindAsync(id);
-
+        public async Task<T> GetByExpression(Func<T, bool> predicate) => _entity.Where(predicate).FirstOrDefault();
+        public async Task<IEnumerable<T>> GetAllByExpression(Func<T, bool> predicate) => _entity.Where(predicate);
+        
 
         public async Task AddAsync(T entity) => await _entity.AddAsync(entity);
         public async Task AddRangeAsync(IEnumerable<T> entities) => await _entity.AddRangeAsync(entities);
@@ -43,7 +45,11 @@ namespace Infrastructure.Repositories
             _context.Set<T>().Add(entity);
             return entity;
         }
-
+        public async Task AutoMapperAddAsync<TSource>(TSource entityDTO) where TSource : class
+        {
+            var entity = mapper.Map<T>(entityDTO);
+            await _entity.AddAsync(entity);
+        }
 
         public void Update(T entity) => _context.Entry(entity).State = EntityState.Modified;
         public void Update(string Query)
@@ -60,14 +66,14 @@ namespace Infrastructure.Repositories
             var entity = mapper.Map<T>(entityDTO);
             _context.Entry(entity).State = EntityState.Modified;
         }
-        public async Task AutoMapperUpdate<TSource>(TSource entityDTO) where TSource : class
+        public async Task AutoMapperUpdateAsync<TSource>(TSource entityDTO) where TSource : class
         {
             await Task.CompletedTask;
             var entity = mapper.Map<T>(entityDTO);
             _context.Entry<T>(entity).State = EntityState.Modified;
         }
 
-        public void Delete(T entity) => _context.Entry(entity).State = EntityState.Deleted;
+        public async Task DeleteAsync(T entity) => _context.Entry(entity).State = EntityState.Deleted;
         public async Task<bool> IsExist(Expression<Func<T, bool>> filter) => await _entity.AnyAsync(filter);
         public async Task<bool> Save() => await _context.SaveChangesAsync() > 0;
         public async Task SaveAsync() => await _context.SaveChangesAsync();
