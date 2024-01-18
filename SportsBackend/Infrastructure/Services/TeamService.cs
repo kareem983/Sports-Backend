@@ -20,7 +20,7 @@ namespace Infrastructure.Services
 
         public TeamService(IGenericRepository<Team> teamRepository, IMapper mapper)
         {
-            this._teamRepository = teamRepository;
+            _teamRepository = teamRepository;
             this.mapper = mapper;
         }
 

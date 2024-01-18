@@ -20,6 +20,7 @@ namespace Infrastructure.DI
             Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             Services.AddScoped<IAccountService, AccountService>();
             Services.AddScoped<ITeamService, TeamService>();
+            Services.AddScoped<ITourmentService, TourmentService>();
             Services.AddScoped<IJWTTokenService, JWTTokenService>();
 
         }
