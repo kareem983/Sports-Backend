@@ -21,6 +21,7 @@ namespace Infrastructure.DI
             Services.AddScoped<IAccountService, AccountService>();
             Services.AddScoped<ITeamService, TeamService>();
             Services.AddScoped<ITourmentService, TourmentService>();
+            Services.AddScoped<IPlayerService, PlayerService>();
             Services.AddScoped<IJWTTokenService, JWTTokenService>();
 
         }

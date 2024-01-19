@@ -17,6 +17,7 @@ namespace Infrastructure.AutoMapper
             MapTeam();
             MapTourment();
             MapTourmentTeam();
+            MapPlayer();
         }
 
         private void MapAccount()
@@ -41,9 +42,16 @@ namespace Infrastructure.AutoMapper
         {
             CreateMap<TourmentDTO, Tourment>().ReverseMap();
         }
+
         private void MapTourmentTeam()
         {
             CreateMap<TourmentTeamDTO, TourmentTeam>().ReverseMap();
         }
+
+        private void MapPlayer()
+        {
+            CreateMap<PlayerDTO, Player>().ReverseMap();
+        }
+
     }
 }
