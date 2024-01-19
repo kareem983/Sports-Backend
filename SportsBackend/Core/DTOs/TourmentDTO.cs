@@ -10,6 +10,11 @@ namespace Core.DTOs
 {
     public class TourmentDTO
     {
+        public TourmentDTO()
+        {
+            TeamsIds = new List<int>();
+        }
+
         public int? Id { get; set; }
         [Required(ErrorMessage = "please Enter the Name")]
         public string Name { get; set; }
