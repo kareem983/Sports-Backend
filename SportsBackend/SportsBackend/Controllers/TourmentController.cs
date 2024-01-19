@@ -100,6 +100,22 @@ namespace SportsBackend.Controllers
         }
 
 
+        [HttpGet("GetTeamsIDsByTourmentId/{id}")]
+        public async Task<IActionResult> GetTeamsIDsByTourmentId(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await tourmentService.GetTeamsIDsByTourmentId(id);
+                if (result.Success)
+                    return Ok(result);
+                else
+                    return BadRequest(result.Message);
+            }
+            else
+                return BadRequest(ModelState);
+        }
+
+
         [HttpGet("GetTeamsByTourmentId/{id}")]
         public async Task<IActionResult> GetTeamsByTourmentId(int id)
         {

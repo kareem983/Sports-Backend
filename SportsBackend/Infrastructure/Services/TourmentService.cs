@@ -15,17 +15,19 @@ namespace Infrastructure.Services
     public class TourmentService : ITourmentService
     {
         private readonly IGenericRepository<Tourment> _TourmentRepository;
+        private readonly IGenericRepository<Team> _TeamRepository;
         private readonly IGenericRepository<TourmentTeam> _TourmentTeamRepository;
         private readonly ITeamService _teamService;
         private readonly SportsContext sportsContext;
         private readonly IMapper mapper;
 
         public TourmentService(IGenericRepository<Tourment> tourmentRepository, IGenericRepository<TourmentTeam> tourmentTeamRepository,
-            ITeamService teamService, SportsContext sportsContext, IMapper mapper)
+            ITeamService teamService, SportsContext sportsContext, IMapper mapper, IGenericRepository<Team> teamRepository)
         {
             _TourmentRepository = tourmentRepository;
             _TourmentTeamRepository = tourmentTeamRepository;
             _teamService = teamService;
+            _TeamRepository = teamRepository;
             this.sportsContext = sportsContext;
             this.mapper = mapper;
         }
@@ -96,7 +98,7 @@ namespace Infrastructure.Services
                     return ResponseResultDTO.Failed("The Tourment is not Exist");
 
                 var tourmentDTO = mapper.Map<TourmentDTO>(tourment);
-                tourmentDTO.TeamsIds = (List<int>)(await GetTeamsByTourmentId(tourment.Id)).Data;
+                tourmentDTO.TeamsIds = (List<int>)(await GetTeamsIDsByTourmentId(tourment.Id)).Data;
 
                 var deleteTourmentTeamResult = await DeleteTourmentTeamByTourmentID(tourmentDTO.Id.Value);
                 if (!deleteTourmentTeamResult.Success)
@@ -125,7 +127,7 @@ namespace Infrastructure.Services
                 int tourmentIndex = 0;
                 foreach (var tourment in tourmentList)
                 {
-                    tourmentDTOList[tourmentIndex++].TeamsIds = (List<int>)(await GetTeamsByTourmentId(tourment.Id)).Data;
+                    tourmentDTOList[tourmentIndex++].TeamsIds = (List<int>)(await GetTeamsIDsByTourmentId(tourment.Id)).Data;
                 }
 
                 if (tourmentList.Count() == 0)
@@ -148,7 +150,7 @@ namespace Infrastructure.Services
                     return ResponseResultDTO.Failed("The Tourment is not Exist");
 
                 var tourmentDTO = mapper.Map<TourmentDTO>(tourment);
-                tourmentDTO.TeamsIds = (List<int>)(await GetTeamsByTourmentId(tourment.Id)).Data;
+                tourmentDTO.TeamsIds = (List<int>)(await GetTeamsIDsByTourmentId(tourment.Id)).Data;
 
                 return new ResponseResultDTO { Success = true, Message = "The Team GetByID Process Done Successfully", Data = tourmentDTO };
             }
@@ -158,7 +160,7 @@ namespace Infrastructure.Services
             }
         }
 
-        public async Task<ResponseResultDTO> GetTeamsByTourmentId(int tourmentId)
+        public async Task<ResponseResultDTO> GetTeamsIDsByTourmentId(int tourmentId)
         {
             try
             {
@@ -173,7 +175,34 @@ namespace Infrastructure.Services
                     tourmentDTO.TeamsIds.Add(item.TeamId);
                 }
 
-                return new ResponseResultDTO { Success = true, Message = "The Teams GetBy Tourment ID Process Done Successfully", Data = tourmentDTO.TeamsIds };
+                return new ResponseResultDTO { Success = true, Message = "The Teams IDs GetBy Tourment ID Process Done Successfully", Data = tourmentDTO.TeamsIds };
+            }
+            catch (Exception ex)
+            {
+                return ResponseResultDTO.Failed("There are a problem occured during deleting a TourmentTeams\nPlease Enter the Id of the tourment");
+            }
+        }
+
+        public async Task<ResponseResultDTO> GetTeamsByTourmentId(int tourmentId)
+        {
+            try
+            {
+                var tourment = await _TourmentRepository.GetByIdAsync(tourmentId);
+                if (tourment is null)
+                    return ResponseResultDTO.Failed("The Tourment is not Exist");
+
+
+                var teamsIDs = (List<int>)(await GetTeamsIDsByTourmentId(tourmentId)).Data;
+
+                List<TeamDTO> teamsDTOList = new List<TeamDTO>();
+                foreach (var teamsID in teamsIDs)
+                {
+                    var team = await _TeamRepository.GetByExpression(x => x.Id == teamsID);
+                    var teamDTO = mapper.Map<TeamDTO>(team);
+                    teamsDTOList.Add(teamDTO);
+                }
+
+                return new ResponseResultDTO { Success = true, Message = "The Teams GetBy Tourment ID Process Done Successfully", Data = teamsDTOList};
             }
             catch (Exception ex)
             {

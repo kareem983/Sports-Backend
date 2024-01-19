@@ -126,6 +126,26 @@ namespace Infrastructure.Services
             }
         }
 
+        public async Task<ResponseResultDTO> GetPlayersIDsByTeamId(int teamId)
+        {
+            try
+            {
+                var team = await _teamRepository.GetByIdAsync(teamId);
+                if (team is null)
+                    return ResponseResultDTO.Failed("The Team is not Exist");
+
+                var playersIDsList = (await _playerRepository.GetAllByExpression(x => x.TeamId == teamId)).Select(x=> x.Id);
+                if (playersIDsList.Count() == 0)
+                    return ResponseResultDTO.Failed("The team doesn't have players");
+
+                return new ResponseResultDTO { Success = true, Message = "The Players IDs GetBy Team ID Process Done Successfully", Data = playersIDsList };
+            }
+            catch (Exception ex)
+            {
+                return ResponseResultDTO.Failed("There are a problem occured during getting a players IDs by team id");
+            }
+        }
+
         public async Task<ResponseResultDTO> GetPlayersByTeamId(int teamId)
         {
             try
@@ -146,5 +166,7 @@ namespace Infrastructure.Services
                 return ResponseResultDTO.Failed("There are a problem occured during getting a players by team id");
             }
         }
+
+
     }
 }
