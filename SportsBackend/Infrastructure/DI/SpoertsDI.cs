@@ -19,10 +19,11 @@ namespace Infrastructure.DI
             Services.AddAutoMapper(Assembly.GetExecutingAssembly());
             Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             Services.AddScoped<IAccountService, AccountService>();
+            Services.AddScoped<IJWTTokenService, JWTTokenService>();
             Services.AddScoped<ITeamService, TeamService>();
             Services.AddScoped<ITourmentService, TourmentService>();
             Services.AddScoped<IPlayerService, PlayerService>();
-            Services.AddScoped<IJWTTokenService, JWTTokenService>();
+            Services.AddScoped<IMatchService, MatchService>();
 
         }
     }
