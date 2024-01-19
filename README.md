@@ -28,6 +28,7 @@ The API Database Design Entities Divided Into (Tourment, Team, TourmentTeam, Pla
 - [1] Install Visual Studio (recommended 2022).
 - [2] Install .Net Core 7.
 - [3] Install SQL Server Management System (recommended 2022).
+- [4] Install Packages for AutoMapper, Dependency Injection, JWT Bearer and SQL Server.
 
 # Before you start
 - [1] Open the project on Visual Studio.
@@ -36,6 +37,7 @@ The API Database Design Entities Divided Into (Tourment, Team, TourmentTeam, Pla
 - [4] make sure that you select default project on the Package Manager Console `Infrastructure`.
 - [5] the command is `update-database`. so the database is created with named SportsDatabase.
 - [6] open the appsettings.json and change the port number to your project port number on the ValidIssuer string.
+- [7] Run the Project.
 
 
 # API Services
