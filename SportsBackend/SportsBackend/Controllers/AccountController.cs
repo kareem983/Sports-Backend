@@ -54,8 +54,8 @@ namespace SportsBackend.Controllers
         }
 
 
-        [Authorize]
         [HttpGet("Logout")]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             if (ModelState.IsValid)

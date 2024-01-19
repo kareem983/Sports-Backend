@@ -21,6 +21,7 @@ namespace SportsBackend.Controllers
 
 
         [HttpPost("Add")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddPlayer([FromBody] PlayerDTO playerDTO)
         {
             if (ModelState.IsValid)
@@ -36,6 +37,7 @@ namespace SportsBackend.Controllers
         }
 
         [HttpPut("Update")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdatePlayer([FromBody] PlayerDTO playerDTO)
         {
             if (ModelState.IsValid)
@@ -52,6 +54,7 @@ namespace SportsBackend.Controllers
 
 
         [HttpDelete("DeleteById/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeletePlayer(int id)
         {
             if (ModelState.IsValid)

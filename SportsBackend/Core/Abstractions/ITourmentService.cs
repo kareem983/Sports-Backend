@@ -16,6 +16,8 @@ namespace Core.Abstractions
         Task<ResponseResultDTO> GetById(int id);
         Task<ResponseResultDTO> GetTeamsIDsByTourmentId(int id);
         Task<ResponseResultDTO> GetTeamsByTourmentId(int id);
+        Task<ResponseResultDTO> GetMatchsIDsByTourmentId(int id);
+        Task<ResponseResultDTO> GetMatchsByTourmentId(int id);
 
     }
 }

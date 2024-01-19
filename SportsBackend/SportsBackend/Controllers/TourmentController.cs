@@ -21,6 +21,7 @@ namespace SportsBackend.Controllers
 
 
         [HttpPost("AddTourmentTeam")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddTourmentTeam([FromBody] TourmentDTO tourmentDTO)
         {
             if (ModelState.IsValid)
@@ -37,6 +38,7 @@ namespace SportsBackend.Controllers
 
 
         [HttpPut("UpdateTourmentTeam")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateTourmentTeam([FromBody] TourmentDTO tourmentDTO)
         {
             if (ModelState.IsValid)
@@ -53,6 +55,7 @@ namespace SportsBackend.Controllers
 
 
         [HttpDelete("DeleteById/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteTourment(int id)
         {
             if (ModelState.IsValid)
@@ -122,6 +125,36 @@ namespace SportsBackend.Controllers
             if (ModelState.IsValid)
             {
                 var result = await tourmentService.GetTeamsByTourmentId(id);
+                if (result.Success)
+                    return Ok(result);
+                else
+                    return BadRequest(result.Message);
+            }
+            else
+                return BadRequest(ModelState);
+        }
+
+        [HttpGet("GetMatchsIDsByTourmentId/{id}")]
+        public async Task<IActionResult> GetMatchsIDsByTourmentId(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await tourmentService.GetMatchsIDsByTourmentId(id);
+                if (result.Success)
+                    return Ok(result);
+                else
+                    return BadRequest(result.Message);
+            }
+            else
+                return BadRequest(ModelState);
+        }
+
+        [HttpGet("GetMatchsByTourmentId/{id}")]
+        public async Task<IActionResult> GetMatchsByTourmentId(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await tourmentService.GetMatchsByTourmentId(id);
                 if (result.Success)
                     return Ok(result);
                 else

@@ -21,6 +21,7 @@ namespace SportsBackend.Controllers
 
 
         [HttpPost("Add")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddMatch([FromBody] MatchDTO matchDTO)
         {
             if (ModelState.IsValid)
@@ -36,6 +37,7 @@ namespace SportsBackend.Controllers
         }
 
         [HttpPut("Update")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateMatch([FromBody] MatchDTO matchDTO)
         {
             if (ModelState.IsValid)
@@ -52,6 +54,7 @@ namespace SportsBackend.Controllers
 
 
         [HttpDelete("DeleteById/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteMatch(int id)
         {
             if (ModelState.IsValid)

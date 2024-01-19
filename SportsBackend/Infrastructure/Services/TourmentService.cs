@@ -16,18 +16,20 @@ namespace Infrastructure.Services
     {
         private readonly IGenericRepository<Tourment> _TourmentRepository;
         private readonly IGenericRepository<Team> _TeamRepository;
+        private readonly IGenericRepository<Match> _MatchRepository;
         private readonly IGenericRepository<TourmentTeam> _TourmentTeamRepository;
         private readonly ITeamService _teamService;
         private readonly SportsContext sportsContext;
         private readonly IMapper mapper;
 
         public TourmentService(IGenericRepository<Tourment> tourmentRepository, IGenericRepository<TourmentTeam> tourmentTeamRepository,
-            ITeamService teamService, SportsContext sportsContext, IMapper mapper, IGenericRepository<Team> teamRepository)
+            ITeamService teamService, SportsContext sportsContext, IMapper mapper, IGenericRepository<Team> teamRepository, IGenericRepository<Match> matchRepository)
         {
             _TourmentRepository = tourmentRepository;
             _TourmentTeamRepository = tourmentTeamRepository;
             _teamService = teamService;
             _TeamRepository = teamRepository;
+            _MatchRepository = matchRepository;
             this.sportsContext = sportsContext;
             this.mapper = mapper;
         }
@@ -179,7 +181,7 @@ namespace Infrastructure.Services
             }
             catch (Exception ex)
             {
-                return ResponseResultDTO.Failed("There are a problem occured during deleting a TourmentTeams\nPlease Enter the Id of the tourment");
+                return ResponseResultDTO.Failed("There are a problem occured during getting a teams ids\nPlease Enter the Id of the tourment");
             }
         }
 
@@ -206,7 +208,45 @@ namespace Infrastructure.Services
             }
             catch (Exception ex)
             {
-                return ResponseResultDTO.Failed("There are a problem occured during deleting a TourmentTeams\nPlease Enter the Id of the tourment");
+                return ResponseResultDTO.Failed("There are a problem occured during getting a teams\nPlease Enter the Id of the tourment");
+            }
+        }
+
+        public async Task<ResponseResultDTO> GetMatchsIDsByTourmentId(int tourmentId)
+        {
+            try
+            {
+                var tourment = await _TourmentRepository.GetByIdAsync(tourmentId);
+                if (tourment is null)
+                    return ResponseResultDTO.Failed("The Tourment is not Exist");
+
+                var matchesIdsList = (await _MatchRepository.GetAllByExpression(x => x.TourmentId == tourmentId)).Select(x=> x.Id);
+                
+
+                return new ResponseResultDTO { Success = true, Message = "The Matchs IDs GetBy Tourment ID Process Done Successfully", Data = matchesIdsList };
+            }
+            catch (Exception ex)
+            {
+                return ResponseResultDTO.Failed("There are a problem occured during getting a matchs ids\nPlease Enter the Id of the tourment");
+            }
+        }
+
+        public async Task<ResponseResultDTO> GetMatchsByTourmentId(int tourmentId)
+        {
+            try
+            {
+                var tourment = await _TourmentRepository.GetByIdAsync(tourmentId);
+                if (tourment is null)
+                    return ResponseResultDTO.Failed("The Tourment is not Exist");
+
+                var matchesList = await _MatchRepository.GetAllByExpression(x => x.TourmentId == tourmentId);
+
+                var matchsDTOList = mapper.Map<List<MatchDTO>>(matchesList);
+                return new ResponseResultDTO { Success = true, Message = "The Matchs GetBy Tourment ID Process Done Successfully", Data = matchsDTOList };
+            }
+            catch (Exception ex)
+            {
+                return ResponseResultDTO.Failed("There are a problem occured during getting a matchs\nPlease Enter the Id of the tourment");
             }
         }
 
