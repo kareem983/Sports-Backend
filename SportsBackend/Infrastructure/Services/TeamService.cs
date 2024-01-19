@@ -16,11 +16,13 @@ namespace Infrastructure.Services
     public class TeamService : ITeamService
     {
         private readonly IGenericRepository<Team> _teamRepository;
+        private readonly IGenericRepository<Player> _playerRepository;
         private readonly IMapper mapper;
 
-        public TeamService(IGenericRepository<Team> teamRepository, IMapper mapper)
+        public TeamService(IGenericRepository<Team> teamRepository, IGenericRepository<Player> playerRepository, IMapper mapper)
         {
             _teamRepository = teamRepository;
+            _playerRepository = playerRepository;
             this.mapper = mapper;
         }
 
@@ -121,6 +123,27 @@ namespace Infrastructure.Services
             catch (Exception ex)
             {
                 return ResponseResultDTO.Failed("There are a problem occured during getting a team");
+            }
+        }
+
+        public async Task<ResponseResultDTO> GetPlayersByTeamId(int teamId)
+        {
+            try
+            {
+                var team = await _teamRepository.GetByIdAsync(teamId);
+                if (team is null)
+                    return ResponseResultDTO.Failed("The Team is not Exist");
+
+                var playersList = await _playerRepository.GetAllByExpression(x=> x.TeamId == teamId);
+                if(playersList.Count() == 0)
+                    return ResponseResultDTO.Failed("The team doesn't have players");
+
+                var playerDTOList = mapper.Map<List<PlayerDTO>>(playersList);
+                return new ResponseResultDTO { Success = true, Message = "The Players GetBy Team ID Process Done Successfully", Data = playerDTOList };
+            }
+            catch (Exception ex)
+            {
+                return ResponseResultDTO.Failed("There are a problem occured during getting a players by team id");
             }
         }
     }

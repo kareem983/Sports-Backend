@@ -99,6 +99,7 @@ namespace SportsBackend.Controllers
                 return BadRequest(ModelState);
         }
 
+
         [HttpGet("GetTeamsByTourmentId/{id}")]
         public async Task<IActionResult> GetTeamsByTourmentId(int id)
         {

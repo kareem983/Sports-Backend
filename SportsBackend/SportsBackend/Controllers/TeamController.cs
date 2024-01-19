@@ -98,5 +98,20 @@ namespace SportsBackend.Controllers
                 return BadRequest(ModelState);
         }
 
+        [HttpGet("GetPlayersByTeamId/{id}")]
+        public async Task<IActionResult> GetPlayersByTeamId(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await teamService.GetPlayersByTeamId(id);
+                if (result.Success)
+                    return Ok(result);
+                else
+                    return BadRequest(result.Message);
+            }
+            else
+                return BadRequest(ModelState);
+        }
+
     }
 }
