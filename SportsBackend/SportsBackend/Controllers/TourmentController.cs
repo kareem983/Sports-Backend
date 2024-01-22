@@ -4,6 +4,8 @@ using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Infrastructure.Constants;
+using System.Data;
 
 namespace SportsBackend.Controllers
 {
@@ -21,7 +23,7 @@ namespace SportsBackend.Controllers
 
 
         [HttpPost("AddTourmentTeam")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Role.Admin)]
         public async Task<IActionResult> AddTourmentTeam([FromBody] TourmentDTO tourmentDTO)
         {
             if (ModelState.IsValid)
@@ -38,7 +40,7 @@ namespace SportsBackend.Controllers
 
 
         [HttpPut("UpdateTourmentTeam")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Role.Admin)]
         public async Task<IActionResult> UpdateTourmentTeam([FromBody] TourmentDTO tourmentDTO)
         {
             if (ModelState.IsValid)
@@ -55,7 +57,7 @@ namespace SportsBackend.Controllers
 
 
         [HttpDelete("DeleteById/{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Role.Admin)]
         public async Task<IActionResult> DeleteTourment(int id)
         {
             if (ModelState.IsValid)

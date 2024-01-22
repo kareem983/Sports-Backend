@@ -4,6 +4,7 @@ using Core.DTOs;
 using Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Infrastructure.Constants;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -103,7 +104,7 @@ namespace Infrastructure.Services
 
         private async Task<ResponseResultDTO> AddUserRole(ApplicationUser user, UserDTO userDTO)
         {
-            var roleResult = await userManager.AddToRoleAsync(user, "User");
+            var roleResult = await userManager.AddToRoleAsync(user, Role.User);
             if (roleResult.Succeeded)
             {
                 userDTO.Id = user.Id;

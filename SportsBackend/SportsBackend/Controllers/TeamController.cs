@@ -3,6 +3,7 @@ using Core.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Infrastructure.Constants;
 
 
 namespace SportsBackend.Controllers
@@ -21,7 +22,7 @@ namespace SportsBackend.Controllers
 
 
         [HttpPost("Add")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Role.Admin)]
         public async Task<IActionResult> AddTeam([FromBody]TeamDTO teamDTO)
         {
             if (ModelState.IsValid)
@@ -37,7 +38,7 @@ namespace SportsBackend.Controllers
         }
 
         [HttpPut("Update")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Role.Admin)]
         public async Task<IActionResult> UpdateTeam([FromBody] TeamDTO teamDTO)
         {
             if (ModelState.IsValid)
@@ -54,7 +55,7 @@ namespace SportsBackend.Controllers
 
         
         [HttpDelete("DeleteById/{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Role.Admin)]
         public async Task<IActionResult> DeleteTeam(int id)
         {
             if (ModelState.IsValid)
